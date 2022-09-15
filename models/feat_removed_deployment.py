@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import pickle
+from PIL import Image
 model = pickle.load(open('feat_imp_final_pipeline','rb'))
 def predict_prob(Age,ChestPainType,RestingBP,Cholesterol,MaxHR,ExerciseAngina,Oldpeak,
                 ST_Slope):
@@ -23,3 +24,5 @@ ST_Slope = st.selectbox("ST Slope",["Up","Down","Flat"])
 if st.button("Predict probability"):
     output = predict_prob(Age,ChestPainType,RestingBP,Cholesterol,MaxHR,ExerciseAngina,Oldpeak,ST_Slope)
     st.success('The probability is {}%'.format(output[0][1]*100))
+image = Image.open('../figures/HEART_INFO_treatments.png')
+st.image(image, caption='Heart disease treatments/preventative measures')
